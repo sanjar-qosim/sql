@@ -38,3 +38,12 @@ select g.group_name, count(s.student_id) as s_count from groups g left join stud
 
 select g.group_name, avg(s.age) as s_age from groups g join students s on g.group_id = s.group_id group by g.group_name
 
+select sub.subject_name, round(avg(g.grade), 2) as avg_grade from subjects sub join grades g on sub.subject_id = g.subject_id group by sub.subject_name
+
+select count(*) from (select student_id from grades group by student_id having count(distinct subject_id) = (select count(*) from subjects)) as subquery
+
+select g.group_name, count(s.student_id) as s_count from groups g join students s on g.group_id = s.group_id group by g.group_name having count(s.student_id) > 1
+
+select sub.subject_name, round(avg(g.grade), 2) as avg_grade from subjects sub join grades g on sub.subject_id = g.subject_id group by sub.subject_name having avg(g.grade) > 8
+
+select s.full_name, round(avg(g.grade) > 2) as avg_grade from students s join grades g on s.student_id = g.student_id group by s.full_name having avg(g.grade) > 8.5
